@@ -1,0 +1,1 @@
+SELECT cust, orderamt, rank FROM (				SELECT *, max(rank) over (partition by cust) as rank1				from (select *, dense_rank() 				over(partition by cust order by orderamt desc) as [rank] from orders) c) dWHERE rank = 4 or (rank = rank1 and rank1 < 4);
